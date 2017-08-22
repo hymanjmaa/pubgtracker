@@ -19,8 +19,8 @@ class PUBGPlayerMonitor:
             raise
 
         self.api = core.PUBGAPI(pubg_api_key)
-        self.player_wins = self.collect_player_wins()
         self.player_match_history = self.collect_player_match_history()
+        self.player_wins = self.collect_player_wins()
 
     def get_player_match_history(self, player_handle):
         """
@@ -30,6 +30,9 @@ class PUBGPlayerMonitor:
         """
         stats = self.api.player(player_handle)
         if stats:
+            if stats.get('error'):
+                print('Error getting stats for player: {0}. This player will be ignored'.format(player_handle))
+                return None
             return stats['MatchHistory']
         else:
             print("No match history for player: {0}".format(player_handle))
@@ -141,6 +144,9 @@ class PUBGPlayerMonitor:
             if match_history:
                 player_match_collection['match_history'] = match_history
                 player_match_history.append(player_match_collection)
+            else:
+                print("")
+                self.players_monitored.remove(player)
         return player_match_history
 
     def check_match_history(self):
@@ -152,7 +158,7 @@ class PUBGPlayerMonitor:
             old_history = player['match_history']
             sleep(1)
             new_history = self.get_player_match_history(player['player'])
-            if not old_history == new_history:
+            if not old_history == new_history and new_history:
                 new_matches = self._return_new_match_history(old_history, new_history)
                 for match in new_matches:
                     self.slack_new_match_history(player['player'], match)
