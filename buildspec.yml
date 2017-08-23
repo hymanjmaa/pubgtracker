@@ -3,7 +3,7 @@ version: 0.2
 phases:
   build:
     commands:
-      - virtualenv -p python3 venv
+      - virtualenv venv
       - source venv/bin/activate
       - pip install -r requirements.txt
       - deactivate
