@@ -14,4 +14,3 @@ artifacts:
   files:
     - pubgtracker_build.zip
   discard-paths: - yes
-  base-directory: ./
