@@ -7,7 +7,7 @@ phases:
   build:
     commands:
       - virtualenv venv
-      - pip install -E venv -r requirements.txt
+      - pip install -e venv -r requirements.txt
       - deactivate
   post_build:
     commands:
