@@ -9,10 +9,9 @@ phases:
       - virtualenv venv
       - . venv/bin/activate
       - pip install -r requirements.txt
-      - deactivate
   post_build:
     commands:
-      - zip -r pubgtracker_build.zip .
+      - tar -czf workspace.tar.gz *
 artifacts:
   files:
     - pubgtracker_build.zip
