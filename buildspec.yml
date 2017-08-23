@@ -13,4 +13,3 @@ phases:
 artifacts:
   files:
     - pubgtracker_build.zip
-  discard-paths: - yes
