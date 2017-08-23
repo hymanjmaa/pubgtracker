@@ -11,7 +11,7 @@ phases:
       - pip install -r requirements.txt
   post_build:
     commands:
-      - tar -czf workspace.tar.gz *
+      - tar -czf pubgtracker_build.tar.gz *
 artifacts:
   files:
-    - pubgtracker_build.zip
+    - pubgtracker_build.tar.gz
