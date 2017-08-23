@@ -6,7 +6,7 @@ phases:
       - sudo pip install virtualenv
   build:
     commands:
-      - virtualenv venv
+      - virtualenv --no-site-packages venv
       - . venv/bin/activate
       - pip install -r requirements.txt
   post_build:
