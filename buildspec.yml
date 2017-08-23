@@ -3,15 +3,15 @@ version: 0.2
 phases:
   build:
     commands:
-      virtualenv -p python3 venv
-      source venv/bin/activate
-      pip install -r requirements.txt
-      deactivate
+      - virtualenv -p python3 venv
+      - source venv/bin/activate
+      - pip install -r requirements.txt
+      - deactivate
   post_build:
     commands:
-      tar -czf pubgtracker_build.tar.gz ./
+      - zip -r pubgtracker_build.zip .
 artifacts:
   files:
-    pubgtracker_build.tar.gz
-  discard-paths: yes
+    - pubgtracker_build.zip
+  discard-paths: - yes
   base-directory: ./
