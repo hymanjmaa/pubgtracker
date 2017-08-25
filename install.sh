@@ -1,4 +1,3 @@
 #!/usr/bin/env bash
-
-ls > /tmp/deploy.out
-echo "Test"
+sudo yum -y update
+tar -xf pubgtracker_build.tar.gz
