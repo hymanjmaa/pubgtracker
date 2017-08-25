@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 
-pkill -f python
+sudo pkill -f monitor.py
