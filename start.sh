@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+
+cd /home/ec2-user
 pwd > /tmp/build.out
 ls >> /tmp/build.out
 tar -xf pubgtracker_build.tar.gz
