@@ -2,4 +2,4 @@
 sudo yum -y update
 sudo yum -y install python35
 sudo yum -y install python35-pip
-sudo pip-35 install -r requirements.txt
+sudo pip-3.5 install -r requirements.txt
