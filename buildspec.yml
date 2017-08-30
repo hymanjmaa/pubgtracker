@@ -7,7 +7,7 @@ phases:
   build:
     commands:
       - virtualenv --no-site-packages venv
-      - . venv/bin/activate
+      - source venv/bin/activate
       - pip install -r requirements.txt
   post_build:
     commands:
