@@ -1,14 +1,6 @@
 version: 0.2
 
 phases:
-  install:
-    commands:
-      - sudo pip install virtualenv
-  build:
-    commands:
-      - virtualenv --no-site-packages venv
-      - . venv/bin/activate
-      - pip install -r requirements.txt
   post_build:
     commands:
       - tar -czf pubgtracker_build.tar.gz *

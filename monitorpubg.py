@@ -57,6 +57,22 @@ class PUBGPlayerMonitor:
             print("No win stats for player: {0}".format(player_handle))
             return None
 
+    def slack_message(self, message):
+        """
+        Send a generic slack message
+        :param message:
+        :return:
+        """
+        try:
+            sc = SlackClient(self.slack_token)
+            sc.api_call(
+                "chat.postMessage",
+                channel=self.slack_channel,
+                text=message)
+        except Exception as e:
+            print("Error making Slack call: {0}".format(e))
+            raise
+
     def slack_new_wins(self, player, mode, new_win, mode_win_diff=None):
         """
         Update slack with new wins.
@@ -72,7 +88,7 @@ class PUBGPlayerMonitor:
             sc = SlackClient(self.slack_token)
             sc.api_call(
                 "chat.postMessage",
-                channel="#pubg",
+                channel=self.slack_channel,
                 text="{0} new win(s) detected for player {1}!\n"
                      "Season: {2}\n"
                      "Mode: {3}\n"
@@ -94,7 +110,7 @@ class PUBGPlayerMonitor:
             sc = SlackClient(self.slack_token)
             sc.api_call(
                 "chat.postMessage",
-                channel="#pubg",
+                channel=self.slack_channel,
                 text="New match history detected for player {0}!\n"
                      "Season: {1}\n"
                      "Mode: {2}\n"
