@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 
 cd /home/ec2-user
-pwd > /tmp/build.out
-ls >> /tmp/build.out
 source venv/bin/activate
-python monitor.py -p ${PUBG_API_KEtail Y} -s ${SLACK_TOKEN} -c ${SLACK_CHANNEL} -e ${PUBG_SEASON} -m ${PLAYERS_MONITORED}
+
+export PUBG_API_KEY=`aws ssm get-parameters --names PUBG_API_KEY --region us-west-2 --with-decryption --query 'Parameters[0].Value' --output text`
+export SLACK_TOKEN=`aws ssm get-parameters --names SLACK_TOKEN --region us-west-2 --with-decryption --query 'Parameters[0].Value' --output text`
+python monitor.py -p ${PUBG_API_KEY} -s ${SLACK_TOKEN} -c "#pubg" -e "2017-pre3" -m "iabosi,GlochNessMonster,TheKroniuss,SPLASH5,viceversus"
