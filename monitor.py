@@ -26,12 +26,15 @@ def main(arguments):
                            season=args.pubg_season,
                            players_monitored=players)
 
-    pm.slack_message("Starting to monitor...\nPlayers: {0}\nSeason: {1}".format(players, args.pubg_season))
+    pm.slack_message("#pubgtrackerbot", "Starting to monitor...\nPlayers: {0}\nSeason: {1}".format(players, args.pubg_season.join(',')))
+
     while 1:
+        pm.slack_message("#pubgtrackerbot", "Checking player wins.")
         pm.check_player_wins()
-        sleep(1)
+        sleep(30)
         pm.check_match_history()
-        sleep(1)
+        pm.slack_message("#pubgtrackerbot", "Checking player match history.")
+        sleep(30)
 
 if __name__ == '__main__':
     sys.exit(main(sys.argv[1:]))

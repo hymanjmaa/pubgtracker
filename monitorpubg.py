@@ -57,7 +57,7 @@ class PUBGPlayerMonitor:
             print("No win stats for player: {0}".format(player_handle))
             return None
 
-    def slack_message(self, message):
+    def slack_message(self, channel, message):
         """
         Send a generic slack message
         :param message:
@@ -67,7 +67,7 @@ class PUBGPlayerMonitor:
             sc = SlackClient(self.slack_token)
             sc.api_call(
                 "chat.postMessage",
-                channel=self.slack_channel,
+                channel=channel,
                 text=message)
         except Exception as e:
             print("Error making Slack call: {0}".format(e))
