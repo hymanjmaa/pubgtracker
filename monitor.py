@@ -26,7 +26,7 @@ def main(arguments):
                            season=args.pubg_season,
                            players_monitored=players)
 
-    pm.slack_message("#pubgtrackerbot", "Starting to monitor...\nPlayers: {0}\nSeason: {1}".format(players.join(','), args.pubg_season))
+    pm.slack_message("#pubgtrackerbot", "Starting to monitor...\nPlayers: {0}\nSeason: {1}".format(args.players_monitored, args.pubg_season))
 
     while 1:
         pm.slack_message("#pubgtrackerbot", "Checking player wins.")
