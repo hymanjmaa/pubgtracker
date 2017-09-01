@@ -1,6 +1,7 @@
 from pypubg import core
 from time import sleep
 from slackclient import SlackClient
+import json
 
 
 class PUBGPlayerMonitor:
@@ -28,15 +29,18 @@ class PUBGPlayerMonitor:
         :param player_handle:
         :return: List of match history dictionaries
         """
-        stats = self.api.player(player_handle)
-        if stats:
-            if stats.get('error'):
-                print('Error getting stats for player: {0}. This player will be ignored'.format(player_handle))
+        try:
+            stats = self.api.player(player_handle)
+            if stats:
+                if stats.get('error'):
+                    print('Error getting stats for player: {0}. This player will be ignored'.format(player_handle))
+                    return None
+                return stats['MatchHistory']
+            else:
+                print("No match history for player: {0}".format(player_handle))
                 return None
-            return stats['MatchHistory']
-        else:
-            print("No match history for player: {0}".format(player_handle))
-            return None
+        except json.JSONDecodeError:
+            print("JSON Decoding error")
 
     def get_player_wins(self, player_handle):
         """
@@ -44,22 +48,26 @@ class PUBGPlayerMonitor:
         :param player_handle:
         :return: Dictionary
         """
-        stats = self.api.player(player_handle).get('Stats')
-        win_collection = dict()
-        if stats:
-            for region_stat in stats:
-                if region_stat['Region'] == 'agg' and region_stat['Season'] == self.season:
-                    for stat in region_stat['Stats']:
-                        if stat['field'] == 'Wins':
-                            win_collection[region_stat['Match']] = stat
-            return win_collection
-        else:
-            print("No win stats for player: {0}".format(player_handle))
-            return None
+        try:
+            stats = self.api.player(player_handle).get('Stats')
+            if stats:
+                win_collection = dict()
+                for region_stat in stats:
+                    if region_stat['Region'] == 'agg' and region_stat['Season'] == self.season:
+                        for stat in region_stat['Stats']:
+                            if stat['field'] == 'Wins':
+                                win_collection[region_stat['Match']] = stat
+                return win_collection
+            else:
+                print("No win stats for player: {0}".format(player_handle))
+                return None
+        except json.JSONDecodeError:
+            print("JSON Decoding error")
 
     def slack_message(self, channel, message):
         """
         Send a generic slack message
+        :param channel:
         :param message:
         :return:
         """
