@@ -24,7 +24,7 @@ def main(arguments):
                            slack_channel=args.slack_channel,
                            players_monitored=players)
 
-    pm.slack_message("#pubgtrackerbot", "Starting to monitor...\nPlayers: {0}".format(args.players_monitored, args.pubg_season))
+    pm.slack_message("#pubgtrackerbot", "Starting to monitor...\nPlayers: {0}".format(args.players_monitored))
 
     while 1:
         pm.check_player_wins()
