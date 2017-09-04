@@ -8,9 +8,8 @@ class PUBGPlayerMonitor:
     """
     PUBG Player Monitor
     """
-    def __init__(self, season=None, pubg_api_key=None, players_monitored=None, slack_token=None, slack_channel=None):
+    def __init__(self, pubg_api_key=None, players_monitored=None, slack_token=None, slack_channel=None):
         try:
-            self.season = season
             self.pubg_api_key = pubg_api_key
             self.players_monitored = players_monitored
             self.slack_token = slack_token
@@ -49,11 +48,13 @@ class PUBGPlayerMonitor:
         :return: Dictionary
         """
         try:
-            stats = self.api.player(player_handle).get('Stats')
-            if stats:
+            player = self.api.player(player_handle)
+            if player:
+                stats = player.get('Stats')
+                season = player.get('defaultSeason')
                 win_collection = dict()
                 for region_stat in stats:
-                    if region_stat['Region'] == 'agg' and region_stat['Season'] == self.season:
+                    if region_stat['Region'] == 'agg' and region_stat['Season'] == season:
                         for stat in region_stat['Stats']:
                             if stat['field'] == 'Wins':
                                 win_collection[region_stat['Match']] = stat
