@@ -6,8 +6,8 @@
 # All idea
 .idea
 
-# All JSON reference files
-*.json
+# All Reference files
+reference.*
 
 ## File-based project format:
 *.iws
