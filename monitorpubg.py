@@ -65,6 +65,8 @@ class PUBGPlayerMonitor:
                 return None
         except json.JSONDecodeError:
             print("JSON Decoding error")
+        except Exception as e:
+            print("Error getting player wins: {0}".format(str(e)))
 
     def slack_message(self, channel, message):
         """
