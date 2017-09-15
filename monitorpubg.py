@@ -52,13 +52,14 @@ class PUBGPlayerMonitor:
             if player:
                 stats = player.get('Stats')
                 season = player.get('defaultSeason')
-                win_collection = dict()
-                for region_stat in stats:
-                    if region_stat['Region'] == 'agg' and region_stat['Season'] == season:
-                        for stat in region_stat['Stats']:
-                            if stat['field'] == 'Wins':
-                                win_collection[region_stat['Match']] = stat
-                return win_collection
+                if stats:
+                    win_collection = dict()
+                    for region_stat in stats:
+                        if region_stat['Region'] == 'agg' and region_stat['Season'] == season:
+                            for stat in region_stat['Stats']:
+                                if stat['field'] == 'Wins':
+                                    win_collection[region_stat['Match']] = stat
+                    return win_collection
             else:
                 print("No win stats for player: {0}".format(player_handle))
                 return None
