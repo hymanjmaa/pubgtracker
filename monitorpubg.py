@@ -103,10 +103,9 @@ class PUBGPlayerMonitor:
                 "chat.postMessage",
                 channel=self.slack_channel,
                 text="{0} new win(s) detected for player {1}!\n"
-                     "Season: {2}\n"
-                     "Mode: {3}\n"
-                     "Win Count: {4}\n"
-                     "Latest Rank: {5}".format(mode_win_diff, player, self.season, mode, new_win['ValueInt'], new_win['rank'])
+                     "Mode: {2}\n"
+                     "Win Count: {3}\n"
+                     "Latest Rank: {4}".format(mode_win_diff, player, mode, new_win['ValueInt'], new_win['rank'])
             )
         except Exception as e:
             print("Error making Slack call: {0}".format(e))
