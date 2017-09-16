@@ -34,7 +34,8 @@ class PUBGPlayerMonitor:
                 if stats.get('error'):
                     print('Error getting stats for player: {0}. This player will be ignored'.format(player_handle))
                     return None
-                return stats['MatchHistory']
+                else:
+                    return stats['MatchHistory']
             else:
                 print("No match history for player: {0}".format(player_handle))
                 return None
@@ -122,7 +123,7 @@ class PUBGPlayerMonitor:
             sc = SlackClient(self.slack_token)
             sc.api_call(
                 "chat.postMessage",
-                channel=self.slack_channel,
+                channel='#pubgtrackerbot',
                 text="New match history detected for player {0}!\n"
                      "Season: {1}\n"
                      "Mode: {2}\n"
@@ -167,13 +168,12 @@ class PUBGPlayerMonitor:
         player_match_history = []
         for player in self.players_monitored:
             player_match_collection = {'player': player}
-            sleep(1)
+            sleep(5)
             match_history = self.get_player_match_history(player)
             if match_history:
                 player_match_collection['match_history'] = match_history
                 player_match_history.append(player_match_collection)
             else:
-                print("")
                 self.players_monitored.remove(player)
         return player_match_history
 
@@ -184,7 +184,7 @@ class PUBGPlayerMonitor:
         """
         for player in self.player_match_history:
             old_history = player['match_history']
-            sleep(1)
+            sleep(5)
             new_history = self.get_player_match_history(player['player'])
             if not old_history == new_history and new_history:
                 new_matches = self._return_new_match_history(old_history, new_history)
