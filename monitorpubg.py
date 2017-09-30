@@ -31,11 +31,10 @@ class PUBGPlayerMonitor:
         try:
             stats = self.api.player(player_handle)
             if stats:
-                if stats.get('error'):
-                    print('Error getting stats for player: {0}. This player will be ignored'.format(player_handle))
-                    return None
+                if stats.get('MatchHistory'):
+                    return stats.get('MatchHistory')
                 else:
-                    return stats['MatchHistory']
+                    print('Error getting stats for player: {0}. This player will be ignored\n{1}'.format(player_handle, stats))
             else:
                 print("No match history for player: {0}".format(player_handle))
                 return None
