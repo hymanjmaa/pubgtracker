@@ -35,6 +35,7 @@ class PUBGPlayerMonitor:
                     return stats.get('MatchHistory')
                 else:
                     print('Error getting stats for player: {0}. This player will be ignored\n{1}'.format(player_handle, stats))
+                    return None
             else:
                 print("No match history for player: {0}".format(player_handle))
                 return None
