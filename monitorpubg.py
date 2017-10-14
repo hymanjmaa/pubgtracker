@@ -19,7 +19,7 @@ class PUBGPlayerMonitor:
             raise
 
         self.api = core.PUBGAPI(pubg_api_key)
-        self.player_match_history = self.collect_player_match_history()
+        # self.player_match_history = self.collect_player_match_history()
         self.player_wins = self.collect_player_wins()
 
     def get_player_match_history(self, player_handle):
