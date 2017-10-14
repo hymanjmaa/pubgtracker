@@ -29,8 +29,6 @@ def main(arguments):
     while 1:
         pm.check_player_wins()
         sleep(30)
-        pm.check_match_history()
-        sleep(30)
 
 if __name__ == '__main__':
     sys.exit(main(sys.argv[1:]))
