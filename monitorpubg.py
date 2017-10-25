@@ -21,9 +21,9 @@ class PUBGPlayerMonitor:
         self.api = core.PUBGAPI(pubg_api_key)
         # self.player_match_history = self.collect_player_match_history()
         self.player_wins = self.collect_player_wins()
-        self.slack_message(self.slack_channel, "Collected wins for players {0}.".format([x['player'] for x in self.player_wins]))
+        self.slack_message("#pubgtrackerbot", "Collected wins for players {0}.".format([x['player'] for x in self.player_wins]))
         self.player_agg_stats = self.collect_player_agg_stats()
-        self.slack_message(self.slack_channel, "Collected aggregate stats for players {0}.".format([x['player'] for x in self.player_agg_stats]))
+        self.slack_message("#pubgtrackerbot", "Collected aggregate stats for players {0}.".format([x['player'] for x in self.player_agg_stats]))
 
     def get_player_match_history(self, player_handle):
         """

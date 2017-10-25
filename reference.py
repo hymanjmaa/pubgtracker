@@ -749,4 +749,16 @@ s = {'platformId': 4, 'AccountId': 'account.1768deae2ef04b97b6aa10162455504e',
          'Kd': 1.67, 'Damage': 1472, 'TimeSurvived': 6625.05, 'WinRating': 1085, 'WinRank': 400253,
          'WinRatingChange': 1085,
          'WinRatingRankChange': 400253, 'KillRating': 1092, 'KillRank': 359071, 'KillRatingChange': 1092,
-         'KillRatingRankChange': 359071, 'MoveDistance': 27889.1}]}
+         'KillRatingRankChange': 359071, 'MoveDistance': 27889.1}],
+     {'wins': {'duo-fpp': {'field': 'Wins', 'percentile': 100.0, 'displayValue': '0', 'ValueDec': None, 'ValueInt': 0,
+                           'label': 'Wins', 'value': '0', 'category': 'Performance', 'rank': 30446},
+               'squad-fpp': {'field': 'Wins', 'percentile': 15.0, 'displayValue': '5', 'ValueDec': None, 'ValueInt': 5,
+                             'label': 'Wins', 'value': '5', 'category': 'Performance', 'rank': 4650},
+               'solo-fpp': {'field': 'Wins', 'percentile': 100.0, 'displayValue': '0', 'ValueDec': None, 'ValueInt': 0,
+                            'label': 'Wins', 'value': '0', 'category': 'Performance', 'rank': 57653}}, 'kills': {
+         'duo-fpp': {'field': 'Kills', 'percentile': 27.0, 'displayValue': '12', 'ValueDec': None, 'ValueInt': 12,
+                     'label': 'Kills', 'value': '12', 'category': 'Combat', 'rank': 38617},
+         'squad-fpp': {'field': 'Kills', 'percentile': 0.9, 'displayValue': '85', 'ValueDec': None, 'ValueInt': 85,
+                       'label': 'Kills', 'value': '85', 'category': 'Combat', 'rank': 1145},
+         'solo-fpp': {'field': 'Kills', 'percentile': 47.0, 'displayValue': '6', 'ValueDec': None, 'ValueInt': 6,
+                      'label': 'Kills', 'value': '6', 'category': 'Combat', 'rank': 47819}}}:""}
