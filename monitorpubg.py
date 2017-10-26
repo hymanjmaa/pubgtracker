@@ -95,7 +95,7 @@ class PUBGPlayerMonitor:
                                     stat_collection['wins'][region_stat['Match']] = stat
                                 if stat['field'] == 'Kills':
                                     stat_collection['kills'][region_stat['Match']] = stat
-                    print(stat_collection)
+                    print("Aggregate stats for {0}:\n{1}".format(player_handle, stat_collection))
                     return stat_collection
             else:
                 print("No win stats for player: {0}".format(player_handle))
