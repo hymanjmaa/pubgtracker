@@ -300,7 +300,7 @@ class PUBGPlayerMonitor:
                         self.slack_new_wins(player['player'], mode, recent_wins[mode])
                 player['wins'] = recent_wins
 
-    def check_player_agg_wins(self):
+    def check_player_agg_stats(self):
         """
         Check if there are any new wins updated for all players defined in settings.
         :return:
@@ -312,17 +312,26 @@ class PUBGPlayerMonitor:
             if recent_stats:
                 for mode in recent_stats['wins']:
                     try:
-                        if old_stats['wins'][mode].get('ValueInt', 0) < recent_stats['wins'][mode].get('ValueInt', 0):
-                            mode_win_diff = recent_stats['wins'][mode].get('ValueInt', 0) - old_stats['wins'][mode].get('ValueInt', 0)
-                            kills_diff = recent_stats['kills'][mode].get('ValueInt', 0) - old_stats['kills'][mode].get('ValueInt', 0)
-                            self.slack_new_agg_wins(
-                                new_wins=mode_win_diff,
-                                player=player['player'],
-                                mode=mode,
-                                win_count=recent_stats['wins'][mode].get('ValueInt', 0),
-                                kills=kills_diff,
-                                kill_count=recent_stats['kills'][mode].get('ValueInt', 0)
-                            )
+                        mode_win_diff = recent_stats['wins'][mode].get('ValueInt', 0) - old_stats['wins'][mode].get(
+                            'ValueInt', 0)
+                        kills_diff = recent_stats['kills'][mode].get('ValueInt', 0) - old_stats['kills'][mode].get(
+                            'ValueInt', 0)
+                        if mode_win_diff > 0:
+                            self.slack_message("#pubg", "{0} new win(s) detected for player {1}!\n"
+                                                        "Mode: {2}\n"
+                                                        "Total Mode Win Count: {3}".format(
+                                                            mode_win_diff,
+                                                            player['player'],
+                                                            mode,
+                                                            recent_stats['wins'][mode].get('ValueInt', 0)))
+                        if kills_diff > 0:
+                            self.slack_message("#pubg", "{0} new kill(s) detected for player {1}!\n"
+                                                        "Mode: {2}\n"
+                                                        "Total Mode Win Count: {3}".format(
+                                                            kills_diff,
+                                                            player['player'],
+                                                            mode,
+                                                            recent_stats['kills'][mode].get('ValueInt', 0)))
                     except Exception as e:
                         print("Exception from trying to parse new wins/stats: {0}".format(str(e)))
                 player['stats'] = recent_stats
