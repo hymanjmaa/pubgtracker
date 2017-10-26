@@ -28,17 +28,16 @@ def main(arguments):
     pm.slack_message("#pubgtrackerbot", "Starting to monitor...\nPlayers: {0}".format(args.players_monitored))
 
     while 1:
+        print_stats = True
         now = datetime.now()
         pm.check_player_agg_wins()
-        if now.minute % 15 == 0:
+        if now.minute % 15 == 0 and print_stats:
             pm.slack_message("#pubgtrackerbot", "PUBG Stat Tracker is running. See current stats monitored for all "
                                                 "players below.")
             for player_stats in pm.player_agg_stats:
                 pm.slack_message("#pubgtrackerbot", "Player: {0}\nStats:\n{1}".format(player_stats['player'], player_stats))
-
+            print_stats = False
         sleep(15)
-
-
 
 if __name__ == '__main__':
     sys.exit(main(sys.argv[1:]))
