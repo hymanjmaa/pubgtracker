@@ -23,9 +23,6 @@ def main(arguments):
                            slack_token=args.slack_token,
                            slack_channel=args.slack_channel,
                            players_monitored=players)
-
-    pm.slack_message("#pubgtrackerbot", "Starting to monitor...\nPlayers: {0}".format(args.players_monitored))
-
     while 1:
         pm.check_player_agg_stats()
         sleep(15)
