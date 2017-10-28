@@ -319,13 +319,17 @@ class PUBGPlayerMonitor:
                         if mode_win_diff > 0:
                             self.slack_message("#pubg", "{0} new win(s) detected for player {1}!\n"
                                                         "Mode: {2}\n"
-                                                        "Total mode win count: {3}".format(
+                                                        "Match kills: {3}\n"
+                                                        "Total mode kill count: {4}\n"
+                                                        "Total mode win count: {5}".format(
                                                             mode_win_diff,
                                                             player['player'],
                                                             mode,
+                                                            kills_diff,
+                                                            recent_stats['kills'][mode].get('ValueInt', 0),
                                                             recent_stats['wins'][mode].get('ValueInt', 0)))
-                        if kills_diff > 0:
-                            self.slack_message("#pubg", "{0} new kill(s) detected for player {1}!\n"
+                        elif kills_diff > 0:
+                            self.slack_message("#pubgtrackerbot", "{0} new kill(s) detected for player {1}!\n"
                                                         "Mode: {2}\n"
                                                         "Total mode kill count: {3}".format(
                                                             kills_diff,
