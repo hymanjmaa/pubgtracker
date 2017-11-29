@@ -19,8 +19,8 @@ def main(arguments):
     args = parser.parse_args(arguments)
     players = args.players_monitored.split(',')
     pm = PUBGPlayerMonitor(api_key=args.pubg_api_key,
-                           slack_token=args.slack_token,
-                           players_monitored=players)
+                           players_monitored=players,
+                           slack_token=args.slack_token)
     while 1:
         pm.check_player_agg_stats()
         sleep(15)

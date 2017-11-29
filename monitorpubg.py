@@ -1,4 +1,3 @@
-from pypubg import core
 from time import sleep
 from slackclient import SlackClient
 
@@ -123,13 +122,14 @@ class PUBGPlayerMonitor:
                                                             recent_stats['kills'][mode].get('ValueInt', 0),
                                                             recent_stats['wins'][mode].get('ValueInt', 0)))
                         elif kills_diff > 0:
-                            self.slack_message("#pubgtrackerbot", "{0} new kill(s) detected for player {1}!\n"
-                                                        "Mode: {2}\n"
-                                                        "Total mode kill count: {3}".format(
-                                                            kills_diff,
-                                                            player['player'],
-                                                            mode,
-                                                            recent_stats['kills'][mode].get('ValueInt', 0)))
+                            self.slack_message("#pubgtrackerbot",
+                                               "{0} new kill(s) detected for player {1}!\n"
+                                               "Mode: {2}\n"
+                                               "Total mode kill count: {3}".format(
+                                                   kills_diff,
+                                                   player['player'],
+                                                   mode,
+                                                   recent_stats['kills'][mode].get('ValueInt', 0)))
                     except Exception as e:
                         print("Exception from trying to parse new wins/stats: {0}".format(str(e)))
                 player['stats'] = recent_stats
