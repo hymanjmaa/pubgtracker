@@ -71,6 +71,7 @@ class PUBGPlayerMonitor:
     def get_player_agg_stats(self, player_handle):
         try:
             player = self.player_stats(player_handle)
+            print(player)
             if player:
                 stats = player.get('Stats')
                 if stats:
