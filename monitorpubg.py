@@ -1,6 +1,5 @@
 from time import sleep
 from slackclient import SlackClient
-from reference import agg_stats_new, agg_stats_old
 
 import requests
 import json
