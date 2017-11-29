@@ -21,9 +21,7 @@ class PUBGPlayerMonitor:
         }
         self.slack_token = slack_token
         self.players_monitored = players_monitored
-        print(self.players_monitored)
         self.player_agg_stats = self.collect_player_agg_stats()
-        print(self.player_agg_stats)
         self.slack_message("#pubgtrackerbot", "Starting monitoring of players: {0}".format(
             ','.join(self.players_monitored)))
 
@@ -71,7 +69,6 @@ class PUBGPlayerMonitor:
     def get_player_agg_stats(self, player_handle):
         try:
             player = self.player_stats(player_handle)
-            print(player)
             if player:
                 stats = player.get('Stats')
                 if stats:
