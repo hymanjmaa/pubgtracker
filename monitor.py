@@ -14,14 +14,12 @@ def main(arguments):
         formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument('-p', '--pubg_api_key', required=True, help="PUBG Tracker API key", type=str)
     parser.add_argument('-s', '--slack_token', required=True, help="Slack Bot token", type=str)
-    parser.add_argument('-c', '--slack_channel', required=True, help="Slack channel", type=str)
     parser.add_argument('-m', '--players_monitored', required=True, help="Players monitored", type=str)
 
     args = parser.parse_args(arguments)
     players = args.players_monitored.split(',')
-    pm = PUBGPlayerMonitor(pubg_api_key=args.pubg_api_key,
+    pm = PUBGPlayerMonitor(api_key=args.pubg_api_key,
                            slack_token=args.slack_token,
-                           slack_channel=args.slack_channel,
                            players_monitored=players)
     while 1:
         pm.check_player_agg_stats()
