@@ -23,8 +23,8 @@ class PUBGPlayerMonitor:
         self.slack_token = slack_token
         self.players_monitored = players_monitored
         self.player_agg_stats = self.collect_player_agg_stats()
-        # self.slack_message("#pubgtrackerbot", "Starting monitoring of players: {0}".format(
-        #     ','.join(self.players_monitored)))
+        self.slack_message("#pubgtrackerbot", "Starting monitoring of players: {0}".format(
+            ','.join(self.players_monitored)))
 
     def slack_message(self, channel, message):
         """
