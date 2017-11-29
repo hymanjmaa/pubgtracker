@@ -5,13 +5,7 @@ import requests
 import json
 
 
-class APIException(Exception):
-    """Generic exception class for raising errors"""
-    pass
-
-
 class PUBGPlayerMonitor:
-    """Object that will represent the player unknown tracker api"""
     def __init__(self, api_key, players_monitored, slack_token):
         self.api_key = api_key
         self.pubg_url = "https://api.pubgtracker.com/v2/profile/pc/"
