@@ -1,5 +1,6 @@
 from time import sleep
 from slackclient import SlackClient
+from reference import agg_stats_new, agg_stats_old
 
 import requests
 import json
@@ -22,8 +23,8 @@ class PUBGPlayerMonitor:
         self.slack_token = slack_token
         self.players_monitored = players_monitored
         self.player_agg_stats = self.collect_player_agg_stats()
-        self.slack_message("#pubgtrackerbot", "Starting monitoring of players: {0}".format(
-            ','.join(self.players_monitored)))
+        # self.slack_message("#pubgtrackerbot", "Starting monitoring of players: {0}".format(
+        #     ','.join(self.players_monitored)))
 
     def slack_message(self, channel, message):
         """
@@ -70,19 +71,19 @@ class PUBGPlayerMonitor:
         try:
             player = self.player_stats(player_handle)
             if player:
-                stats = player.get('Stats')
+                stats = player.get('stats')
                 if stats:
                     stat_collection = {
                         'wins': dict(),
                         'kills': dict(),
                     }
                     for region_stat in stats:
-                        if region_stat['Region'] == 'agg':
-                            for stat in region_stat['Stats']:
+                        if region_stat['region'] == 'agg':
+                            for stat in region_stat['stats']:
                                 if stat['field'] == 'Wins':
-                                    stat_collection['wins'][region_stat['Match']] = stat
+                                    stat_collection['wins'][region_stat['mode']] = stat
                                 if stat['field'] == 'Kills':
-                                    stat_collection['kills'][region_stat['Match']] = stat
+                                    stat_collection['kills'][region_stat['mode']] = stat
                     print("Aggregate stats for {0}:\n{1}".format(player_handle, stat_collection))
                     return stat_collection
             else:
@@ -105,10 +106,10 @@ class PUBGPlayerMonitor:
             if recent_stats:
                 for mode in recent_stats['wins']:
                     try:
-                        mode_win_diff = recent_stats['wins'][mode].get('ValueInt', 0) - old_stats['wins'][mode].get(
-                            'ValueInt', 0)
-                        kills_diff = recent_stats['kills'][mode].get('ValueInt', 0) - old_stats['kills'][mode].get(
-                            'ValueInt', 0)
+                        mode_win_diff = recent_stats['wins'][mode].get('valueInt', 0) - old_stats['wins'][mode].get(
+                            'valueInt', 0)
+                        kills_diff = recent_stats['kills'][mode].get('valueInt', 0) - old_stats['kills'][mode].get(
+                            'valueInt', 0)
                         if mode_win_diff > 0:
                             self.slack_message("#pubg", "{0} new win(s) detected for player {1}!\n"
                                                         "Mode: {2}\n"
@@ -119,8 +120,8 @@ class PUBGPlayerMonitor:
                                                             player['player'],
                                                             mode,
                                                             kills_diff,
-                                                            recent_stats['kills'][mode].get('ValueInt', 0),
-                                                            recent_stats['wins'][mode].get('ValueInt', 0)))
+                                                            recent_stats['kills'][mode].get('valueInt', 0),
+                                                            recent_stats['wins'][mode].get('valueInt', 0)))
                         elif kills_diff > 0:
                             self.slack_message("#pubgtrackerbot",
                                                "{0} new kill(s) detected for player {1}!\n"
@@ -129,7 +130,7 @@ class PUBGPlayerMonitor:
                                                    kills_diff,
                                                    player['player'],
                                                    mode,
-                                                   recent_stats['kills'][mode].get('ValueInt', 0)))
+                                                   recent_stats['kills'][mode].get('valueInt', 0)))
                     except Exception as e:
                         print("Exception from trying to parse new wins/stats: {0}".format(str(e)))
                 player['stats'] = recent_stats
